@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Paccy Currency Exchange App - Convert currencies in real-time with live exchange rates and 30-day trend analysis">
+    <title>Paccy Currency Exchange App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- the browser icon -->
+    <link rel="icon" sizes="32x32" href="images/logo.png" type="image/png">
+    <link rel="icon" sizes="16x16" href="images/logo.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Paccy Logo" class="logo-img">
+            <span data-i18n="appName">Paccy Currency Exchange</span>
+        </div>
+        <div class="header-controls">
+            <!-- Language Selector -->
+            <div class="language-selector">
+                <button class="lang-btn" id="langToggle" title="Change Language">
+                    <span id="currentLangFlag">🇺🇸</span>
+                    <span id="currentLangCode">EN</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 10l5 5 5-5z" />
+                    </svg>
+                </button>
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-option active" data-lang="en" data-flag="🇺🇸">🇺🇸 English</button>
+                    <button class="lang-option" data-lang="es" data-flag="🇪🇸">🇪🇸 Español</button>
+                    <button class="lang-option" data-lang="fr" data-flag="🇫🇷">🇫🇷 Français</button>
+                    <button class="lang-option" data-lang="de" data-flag="🇩🇪">🇩🇪 Deutsch</button>
+                    <button class="lang-option" data-lang="zh" data-flag="🇨🇳">🇨🇳 中文</button>
+                    <button class="lang-option" data-lang="ja" data-flag="🇯🇵">🇯🇵 日本語</button>
+                    <button class="lang-option" data-lang="pt" data-flag="🇧🇷">🇧🇷 Português</button>
+                    <button class="lang-option" data-lang="ru" data-flag="🇷🇺">🇷🇺 Русский</button>
+                    <button class="lang-option" data-lang="ar" data-flag="🇸🇦">🇸🇦 العربية</button>
+                    <button class="lang-option" data-lang="hi" data-flag="🇮🇳">🇮🇳 हिन्दी</button>
+                    <button class="lang-option" data-lang="tr" data-flag="🇹🇷">🇹🇷 Türkçe</button>
+                </div>
+            </div>
+
+            <!-- Theme Toggle -->
+            <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+                <span class="theme-icon sun">☀️</span>
+                <span class="theme-icon moon">🌙</span>
+            </button>
+
+            <span class="last-updated" id="lastUpdated" data-i18n="lastUpdated">Last updated: --</span>
+        </div>
+    </header>
+
+    <main>
+        <!-- Converter Section -->
+        <section class="converter-section glass-card" id="converterSection">
+            <div>
+                <h1 class="section-title" data-i18n="convertTitle">Convert Currency</h1>
+                <p class="section-subtitle" data-i18n="convertSubtitle">Real-time exchange rates at your fingertips</p>
+            </div>
+
+            <div class="input-group">
+                <label class="label" data-i18n="amount">Amount</label>
+                <div class="currency-input-wrapper">
+                    <input type="number" class="amount-input" id="fromAmount" value="1" min="0" step="0.01">
+                    <select class="currency-select" id="fromCurrency">
+                        <option value="USD">USD</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="swap-btn" id="swapBtn" title="Swap currencies">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16" />
+                </svg>
+            </button>
+
+            <div class="input-group">
+                <label class="label" data-i18n="convertedTo">Converted To</label>
+                <div class="currency-input-wrapper">
+                    <input type="number" class="amount-input" id="toAmount" readonly>
+                    <select class="currency-select" id="toCurrency">
+                        <option value="EUR">EUR</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="result-display">
+                <span class="result-main" id="resultMain">--</span>
+                <span class="result-sub" id="resultSub" data-i18n="enterAmount">Enter an amount to convert</span>
+            </div>
+        </section>
+
+        <!-- Rates Grid Section -->
+        <section class="rates-container glass-card" id="ratesSection">
+            <div class="rates-header">
+                <h2 class="section-title" data-i18n="liveRates">Live Rates</h2>
+                <input type="text" class="search-bar" id="searchRates" data-i18n-placeholder="searchCurrency"
+                    placeholder="🔍 Search currency...">
+            </div>
+            <p class="section-subtitle"><span data-i18n="allRatesBased">All rates based on</span> <span
+                    id="baseCurrencyLabel">USD</span></p>
+            <div class="rates-grid" id="ratesGrid">
+                <div class="rate-card skeleton">
+                    <div class="skeleton-text"></div>
+                    <div class="skeleton-text short"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Enhanced 30-Day Trend Dashboard -->
+    <section class="trend-section">
+        <div class="trend-dashboard-full glass-card">
+            <div class="trend-header-full">
+                <div class="trend-title-area">
+                    <h2 class="trend-main-title">📈 <span data-i18n="trendTitle">30-Day Exchange Rate Trend</span></h2>
+                    <p class="trend-description" data-i18n="trendDescription">Statistical analysis of currency
+                        performance over the last 30 days</p>
+                </div>
+                <div class="trend-actions">
+                    <button class="trend-btn" id="viewUsdTryBtn">
+                        <span class="flag-icon">🇺🇸</span>
+                        <span class="btn-text">USD ➔ TRY</span>
+                    </button>
+                    <button class="trend-btn" id="viewEurTryBtn">
+                        <span class="flag-icon">🇪🇺</span>
+                        <span class="btn-text">EUR ➔ TRY</span>
+                    </button>
+                    <div class="trend-currency-display">
+                        <span id="trendFromCurrency" class="trend-currency">USD</span>
+                        <span class="trend-arrow">→</span>
+                        <span id="trendToCurrency" class="trend-currency">EUR</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card stat-current">
+                    <div class="stat-icon">💹</div>
+                    <div class="stat-content">
+                        <span class="stat-label" data-i18n="currentRate">Current Rate</span>
+                        <span class="stat-value" id="statCurrentRate">--</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-high">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-content">
+                        <span class="stat-label" data-i18n="thirtyDayHigh">30-Day High</span>
+                        <span class="stat-value" id="statHighRate">--</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-low">
+                    <div class="stat-icon">📉</div>
+                    <div class="stat-content">
+                        <span class="stat-label" data-i18n="thirtyDayLow">30-Day Low</span>
+                        <span class="stat-value" id="statLowRate">--</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-change">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <span class="stat-label" data-i18n="totalChange">Total Change</span>
+                        <span class="stat-value" id="statChange">--</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-avg">
+                    <div class="stat-icon">⚖️</div>
+                    <div class="stat-content">
+                        <span class="stat-label" data-i18n="averageRate">Average Rate</span>
+                        <span class="stat-value" id="statAvgRate">--</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-volatility">
+                    <div class="stat-icon">🌊</div>
+                    <div class="stat-content">
+                        <span class="stat-label" data-i18n="volatility">Volatility</span>
+                        <span class="stat-value" id="statVolatility">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Large Chart -->
+            <div class="chart-container-full">
+                <canvas id="trendChart"></canvas>
+            </div>
+
+            <!-- Chart Legend -->
+            <div class="chart-legend">
+                <div class="legend-item">
+                    <span class="legend-line gradient"></span>
+                    <span data-i18n="exchangeRate">Exchange Rate</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-line avg"></span>
+                    <span data-i18n="averageLine">30-Day Average</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p data-i18n="poweredBy">Powered by ExchangeRate-API • Real-time currency data</p>
+            <a href="https://paccywebdev.github.io/Pacifique-Nsabumukiza/" target="_blank" class="contact-btn"
+                id="contactBtn">
+                <span class="contact-icon">👨‍💻</span>
+                <span data-i18n="contactCreator">Contact Creator: Paccy Developer</span>
+                <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
