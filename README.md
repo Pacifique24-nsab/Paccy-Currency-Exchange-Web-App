@@ -45,10 +45,10 @@ This app provides clarity and transparency for anyone interested in monitoring g
 - Anyone curious about global financial trends.
 
 🔮 Future Improvements
-- Add support for more visualization options (in
-- teractive charts).
+- Add support for more visualization options (interactive charts).
 - Implement API integration for live exchange rate data.
 - Enhance mobile responsiveness for better usability.
+- implementation of artificial intelligence to help the user navigate and be able to find whatever he/she wants without any issue
 
 
 
