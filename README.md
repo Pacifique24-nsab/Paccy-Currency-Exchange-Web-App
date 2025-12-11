@@ -26,11 +26,8 @@ This app provides clarity and transparency for anyone interested in monitoring g
   * project structure
 
 ├── index.html        # Main entry point of the app
-
 ├── style.css         # Stylesheet for layout and design
-
 ├── script.js         # Core logic for exchange rates and trends
-
 └── README.md         # Documentation
 
 ⚙️ How It Works
